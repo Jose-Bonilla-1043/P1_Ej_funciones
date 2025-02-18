@@ -1,29 +1,45 @@
 import 'dart:io';
 
-// Clase Producto
-class Producto {
-  int id_producto;
+// Clase base Entidad
+class Entidad {
+  int id;
   String nombre;
+
+  Entidad({
+    required this.id,
+    required this.nombre,
+  });
+
+  void mostrarDetalles() {
+    print('''
+    ID: $id
+    Nombre: $nombre
+    ''');
+  }
+}
+
+// Clase Producto que hereda de Entidad
+class Producto extends Entidad {
   String descripcion;
-  String talla; // Cambiado de "tamaño" a "talla"
+  String talla;
   String color;
   double precio;
   String marca;
 
   Producto({
-    required this.id_producto,
-    required this.nombre,
+    required int id_producto,
+    required String nombre,
     required this.descripcion,
-    required this.talla, // Cambiado de "tamaño" a "talla"
+    required this.talla,
     required this.color,
     required this.precio,
     required this.marca,
-  });
+  }) : super(id: id_producto, nombre: nombre);
 
+  @override
   void mostrarDetalles() {
+    super.mostrarDetalles();
     print('''
-    ID Producto: $id_producto
-    Nombre: $nombre
     Descripción: $descripcion
     Talla: $talla
     Color: $color
@@ -33,28 +49,26 @@ class Producto {
   }
 }
 
-// Clase Cliente
-class Cliente {
-  int id_cliente;
-  String nombre;
+// Clase Cliente que hereda de Entidad
+class Cliente extends Entidad {
   String apellido;
   String email;
   String telefono;
   String direccion;
 
   Cliente({
-    required this.id_cliente,
-    required this.nombre,
+    required int id_cliente,
+    required String nombre,
     required this.apellido,
     required this.email,
     required this.telefono,
     required this.direccion,
-  });
+  }) : super(id: id_cliente, nombre: nombre);
 
+  @override
   void mostrarDetalles() {
+    super.mostrarDetalles();
     print('''
-    ID Cliente: $id_cliente
-    Nombre: $nombre
     Apellido: $apellido
     Email: $email
     Teléfono: $telefono
@@ -72,7 +86,7 @@ Producto capturaDatosProducto() {
   String nombre = stdin.readLineSync()!;
   stdout.write('Descripción: ');
   String descripcion = stdin.readLineSync()!;
-  stdout.write('Talla: '); // Cambiado de "Tamaño" a "Talla"
+  stdout.write('Talla: ');
   String talla = stdin.readLineSync()!;
   stdout.write('Color: ');
   String color = stdin.readLineSync()!;
@@ -85,7 +99,7 @@ Producto capturaDatosProducto() {
     id_producto: id_producto,
     nombre: nombre,
     descripcion: descripcion,
-    talla: talla, // Cambiado de "tamaño" a "talla"
+    talla: talla,
     color: color,
     precio: precio,
     marca: marca,
@@ -120,7 +134,8 @@ Cliente capturaDatosCliente() {
 
 // Función principal
 void main() {
-   print("Jose Antonio Bonilla Villalobos Mat: 22308051281043");
+  print("Jose Antonio Bonilla Villalobos Mat: 22308051281043");
+  
   // Captura de datos de un producto
   Producto producto = capturaDatosProducto();
   print('\nDetalles del producto capturado:');
